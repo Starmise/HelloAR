@@ -7,7 +7,7 @@ public class RunnerGeneratorAr : MonoBehaviour
     public List<GameObject> chunksPrefabs;
     public Transform player;
     public int initialChunks = 2;
-    public float spawnDistance = 50f;
+    public float spawnDistance = 49.5f;
 
     private List<GameObject> spawnedChunks = new List<GameObject>();
     private float zSpawn = 0f; // Current z position to spawn new chunks
@@ -23,10 +23,9 @@ public class RunnerGeneratorAr : MonoBehaviour
 
     private void Update()
     {
-        if (player.position.z > zSpawn - (initialChunks * chunkLenght))
+        if (spawnedChunks.Count < initialChunks + 2)
         {
             SpawnChunk();
-            DeleteChunk(); // The old one
         }
     }
 
@@ -36,26 +35,17 @@ public class RunnerGeneratorAr : MonoBehaviour
 
         if (isInitial)
         {
-            chunk = Instantiate(chunksPrefabs[0], transform); // <-- parent = este objeto
+            chunk = Instantiate(chunksPrefabs[0], transform);
             chunk.transform.localPosition = Vector3.forward * zSpawn;
         }
         else
         {
             int index = Random.Range(0, chunksPrefabs.Count);
-            chunk = Instantiate(chunksPrefabs[index], transform); // <-- parent = este objeto
+            chunk = Instantiate(chunksPrefabs[index], transform);
             chunk.transform.localPosition = Vector3.forward * zSpawn;
         }
 
         spawnedChunks.Add(chunk);
         zSpawn += chunkLenght;
-    }
-
-    void DeleteChunk()
-    {
-        if (spawnedChunks.Count > initialChunks + 2)
-        {
-            Destroy(spawnedChunks[0]);
-            spawnedChunks.RemoveAt(0);
-        }
     }
 }
