@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,13 @@ public class PlayerController : MonoBehaviour
     private int score = 0;
     private Vector3 movement;
     private Rigidbody rb;
+    private RunnerControls controls;
+    private Vector2 moveInput;
+
+    private void Awake()
+    {
+        controls = new RunnerControls();
+    }
 
     private void Start()
     {
@@ -23,17 +31,27 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(AddScoreByTime());
     }
 
+    private void OnEnable()
+    {
+        controls.Enable();
+        controls.Runner.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.Runner.Move.canceled += ctx => moveInput = Vector2.zero;
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
     private void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-
         Quaternion playerRotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveX = moveInput.x;
 
         Vector3 forwardMovement = Vector3.forward * consSpeed;
         Vector3 horizontalMovement = Vector3.right * moveX * lateralSpeed;

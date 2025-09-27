@@ -4,7 +4,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform target;
     public float speedSmooth = 4f;
-    public Vector3 offset = new Vector3(0f, 11f, -6f);
+    public Vector3 offset = new Vector3(0f, 12f, -11f);
     public float rotateSpeed = 100f;
 
     private float currentAngle = 0f;
