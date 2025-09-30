@@ -15,6 +15,8 @@ public class RunnerGeneratorAr : MonoBehaviour
 
     private void Start()
     {
+        enabled = false;
+
         for (int i = 0; i < initialChunks; i++)
         {
             SpawnChunk(i == 0); // The first chunk will always be the same
