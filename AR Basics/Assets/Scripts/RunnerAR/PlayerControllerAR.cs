@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerControllerAR : MonoBehaviour
 {
     [Header("Movement")]
-    public float lateralSpeed = 8.0f;
+    public float lateralSpeed = 0.08f;
     public float rotationSpeed = 12.0f;
 
     private int health = 100;
@@ -50,7 +50,7 @@ public class PlayerControllerAR : MonoBehaviour
     {
         float moveX = moveInput.x;
 
-        Vector3 horizontalMovement = Vector3.right * moveX * lateralSpeed * Time.fixedDeltaTime;
+        Vector3 horizontalMovement = Vector3.right * moveX * lateralSpeed * Time.fixedDeltaTime / 30f;
         rb.MovePosition(rb.position + horizontalMovement);
     }
 
