@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RunnerGeneratorAr : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class RunnerGeneratorAr : MonoBehaviour
 
     private void Start()
     {
+        enabled = false;
+
         for (int i = 0; i < initialChunks; i++)
         {
             SpawnChunk(i == 0); // The first chunk will always be the same
@@ -47,5 +50,10 @@ public class RunnerGeneratorAr : MonoBehaviour
 
         spawnedChunks.Add(chunk);
         zSpawn += chunkLenght;
+    }
+
+    public void ReturToMenu()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }
