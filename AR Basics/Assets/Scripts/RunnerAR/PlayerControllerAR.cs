@@ -6,7 +6,6 @@ public class PlayerControllerAR : MonoBehaviour
 {
     [Header("Movement")]
     public float lateralSpeed = 0.08f;
-    public float rotationSpeed = 12.0f;
 
     private int health = 100;
     private int score = 0;
@@ -40,17 +39,11 @@ public class PlayerControllerAR : MonoBehaviour
         controls.Disable();
     }
 
-    private void Update()
-    {
-        Quaternion playerRotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, rotationSpeed * Time.deltaTime);
-    }
-
     private void FixedUpdate()
     {
         float moveX = moveInput.x;
 
-        Vector3 horizontalMovement = Vector3.right * moveX * lateralSpeed * Time.fixedDeltaTime / 30f;
+        Vector3 horizontalMovement = Vector3.right * moveX * lateralSpeed * Time.fixedDeltaTime / 10f;
         rb.MovePosition(rb.position + horizontalMovement);
     }
 
